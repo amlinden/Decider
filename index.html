@@ -45,8 +45,33 @@
 </script>
 <body>
     <div class="container" style="width:100%">
-        <button id="room1"onclick="room_id(this.id);" type="button" class="btn btn-info">Start</button>
+        <button id="room1" type="button" class="btn btn-info">Start</button> <div ng-hide="myValue" class="ng-hide"></div>
         <button id="room2"onclick="room_id(this.id);" type="button" class="btn btn-info">hej</button>
     </div>
+   
+
+    <div ng-app="myApp" ng-controller="personCtrl">
+
+<button ng-click="toggle()">Hide user</button>
+
+<p ng-hide="myVar">
+First Name: <input type=text ng-model="firstName"><br>
+Last Name: <input type=text ng-model="lastName"><br><br>
+Full Name: {{firstName + " " + lastName}}
+</p>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('personCtrl', function($scope) {
+    $scope.firstName = "John",
+    $scope.lastName = "Doe"
+    $scope.myVar = false;
+    $scope.toggle = function() {
+        $scope.myVar = !$scope.myVar;
+    };
+});
+</script> 
 </body>
 </html>
