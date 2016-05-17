@@ -41,8 +41,8 @@
 
 
 div{
-  
-  background: url(bakgrund7.jpg) no-repeat;
+  background: #99CCCC;
+  /*background: url(bakgrund3.jpg) no-repeat;*/
 }
 /*div {
   width: 400px;
@@ -95,89 +95,102 @@ div::after {
 .ghost-button-rounded-corners:hover,
 .ghost-button-rounded-corners:active {
   background-color: lightblue;
-  color:#fff ;
+  color:#fff;
   
 }
 
 </style>
 
-<!-- Go back button -->
-<div class="container" style="width:100%">
-    <p>
-    </br>
-        <a href="/index.html">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-    </p>
-</div>
-
-
 <body ng-app= "myApp">
-    <div style="width:100%">
 
-        <!-- first button, on click takes you to shake me page -->
-        <div ng-controller="shakeMeCtrl" >
-        <button ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
+  <!-- Go back-button -->
+  <div class="container" style="width:100%" ng-controller="backCtrl">
+    </br>
+    <button ng-hide="back" ng-click="toggleBack()" class="ghost-button-rounded-corners" >
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </button>
+    
+  <!-- first button, on click takes you to shake me page -->
+  <div ng-controller="shakeMeCtrl" >
+  <button ng-hide="showBtn" ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
 
-        <!-- Here the user makes choices so that the shake me will decide choice -->
-        <form ng-hide="showForm" action="" onsubmit="return false;">
+  <!-- Here the user makes choices so that the shake me will decide choice -->
+  <form ng-hide="showForm" action="" onsubmit="return false;">
 
-        <textarea class="form-control" rows="5" id="choicelist" cols=500>
-        </textarea><br><br>
+  <textarea class="form-control" rows="5" id="choicelist" cols=500>
+  </textarea><br><br>
 
-        <input type="button" value="Choose" class="ghost-button-rounded-corners" onclick="randchoose(); return false;"><br><br>
-        <input id="result" type="value" value="" readonly="readonly">
-        </form>
+  <input type="button" value="Choose" class="ghost-button-rounded-corners" onclick="randchoose(); return false;"><br><br>
+  <input id="result" type="value" value="" readonly="readonly">
+  </form>
 
-        <!-- second button on the first page, on click, takes you to get inspiration page -->
-        <div ng-controller="inspirationCtrl" >
-            <button ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Get inspiration</button>
+  <!-- second button on the first page, on click, takes you to get inspiration page -->
+  <div ng-controller="inspirationCtrl" >
+  </br>
+      <button ng-hide="showBtn" ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Get inspiration</button>
 
-        <p ng-hide="showInspo" >
-            Find
-            </br>
-            me 
-            </br>
-            some
-            </br>
+  <p ng-hide="showInspo" >
+      Find
+      </br>
+      me 
+      </br>
+      some
+      </br>
 
-            <button ng-click="toggleChoice()" class="ghost-button-rounded-corners" >
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
+      <button ng-click="toggleChoice()" class="ghost-button-rounded-corners" >
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      </button>
 
-         <p ng-hide="showChoices">
-            </br>
-            <button class="ghost-button-rounded-corners">Coffee</button>
-            <input type=text ng-model="coffee"><br>
-            <button class="ghost-button-rounded-corners">Beer</button>
-            <input type=text ng-model="beer"><br><br> 
+   <p ng-hide="showChoices">
+      </br>
+      <button class="ghost-button-rounded-corners">Coffee</button>
+      <input type=text ng-model="coffee"><br>
+      <button class="ghost-button-rounded-corners">Beer</button>
+      <input type=text ng-model="beer"><br><br> 
 
-            </p>
+      </p>
 
-        <!-- Home button -->
-        <button type="button" class="ghost-button-rounded-corners">
-            <span class="glyphicon glyphicon-home"></span>
-        </button>
-        </br>
+  <!-- Home button -->
+  </br></br>
+  <button type="button" class="ghost-button-rounded-corners">
+      <span class="glyphicon glyphicon-home"></span>
+  </button>
 
-            </p>
-        </div>
-    </div>
+      </p>
+  </div>
+  </div>
 
-<!-- Home button -->
+
 
 
 
 <script>
 var app = angular.module('myApp', []);
 
+
+
+app.controller('backCtrl', function($scope) {
+    $scope.back       = true;
+    $scope.showBtn    = false;
+    $scope.showBtn    = false;
+    $scope.toggleBack = function() {
+    $scope.showBtn    = !$scope.showBtn;
+    $scope.showBtn    = true;
+    $scope.showBtn    = true;
+    $scope.showForm   = true;
+
+    };
+});
+
 app.controller('inspirationCtrl', function($scope) {
     $scope.showInspo = true
     $scope.toggle = function() {
         $scope.showInspo = !$scope.showInspo;
         $scope.showChoices = true;
+        $scope.showBtn2 = true;
     };
     $scope.showChoices = true;
+    
     $scope.coffee = "Beirut Café, 450 meter, Engelbrektsgatan 37",
     $scope.beer = "Lion Bar",    
     $scope.toggleChoice = function() {
@@ -191,6 +204,7 @@ app.controller('shakeMeCtrl', function($scope) {
         $scope.showForm = !$scope.showForm;
         
         $scope.showInspo = true
+        $scope.showBtn1 = true
     };
 }); 
 
