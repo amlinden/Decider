@@ -108,11 +108,25 @@ div::after {
     </p>
 </div>
 
+
 <body ng-app= "myApp">
     <div style="width:100%">
-        <button type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
-        </br><!-- <div ng-hide="myValue" class="ng-hide"></div> -->
-        
+
+        <!-- first button, on click takes you to shake me page -->
+        <div ng-controller="shakeMeCtrl" >
+        <button ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
+
+        <!-- Here the user makes choices so that the shake me will decide choice -->
+        <form ng-hide="showForm" action="" onsubmit="return false;">
+
+        <textarea class="form-control" rows="5" id="choicelist" cols=500>
+        </textarea><br><br>
+
+        <input type="button" value="Choose" class="ghost-button-rounded-corners" onclick="randchoose(); return false;"><br><br>
+        <input id="result" type="value" value="" readonly="readonly">
+        </form>
+
+        <!-- second button on the first page, on click, takes you to get inspiration page -->
         <div ng-controller="inspirationCtrl" >
             <button ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Get inspiration</button>
 
@@ -149,36 +163,32 @@ div::after {
 
 <!-- Home button -->
 
-<form action="" onsubmit="return false;">
 
-<textarea class="form-control" rows="5" id="choicelist" cols=500>
-</textarea><br><br>
-
-<input type="button" value="Choose" class="btn btn-info" onclick="randchoose(); return false;"><br><br>
-<input id="result" type="value" value="" readonly="readonly">
-</form>
 
 <script>
 var app = angular.module('myApp', []);
 
 app.controller('inspirationCtrl', function($scope) {
     $scope.showInspo = true
-
-
     $scope.toggle = function() {
         $scope.showInspo = !$scope.showInspo;
         $scope.showChoices = true;
-
     };
     $scope.showChoices = true;
     $scope.coffee = "Beirut Café, 450 meter, Engelbrektsgatan 37",
     $scope.beer = "Lion Bar",    
     $scope.toggleChoice = function() {
-    $scope.showChoices = !$scope.showChoices;
-};
+      $scope.showChoices = !$scope.showChoices;
+    };
 }); 
 
-
+app.controller('shakeMeCtrl', function($scope) {
+    $scope.showForm = true
+    $scope.toggle = function() {
+        $scope.showForm = !$scope.showForm;
+        // $scope.showChoices = true;
+    };
+}); 
 
 function randchoose() {
   choices = document.getElementById("choicelist").value.split("\n");
