@@ -44,34 +44,28 @@
 
 </script>
 <body>
-    <div class="container" style="width:100%">
-        <button id="room1" type="button" class="btn btn-info">Start</button> <div ng-hide="myValue" class="ng-hide"></div>
-        <button id="room2"onclick="room_id(this.id);" type="button" class="btn btn-info">hej</button>
-    </div>
-   
+<div class="container" style="width:100%"><br>
+<form action="" onsubmit="return false;">
 
-    <div ng-app="myApp" ng-controller="personCtrl">
+<textarea class="form-control" rows="5" id="choicelist" cols=500>
+</textarea><br><br>
 
-<button ng-click="toggle()">Hide user</button>
-
-<p ng-hide="myVar">
-First Name: <input type=text ng-model="firstName"><br>
-Last Name: <input type=text ng-model="lastName"><br><br>
-Full Name: {{firstName + " " + lastName}}
-</p>
-
-</div>
+<input type="button" value="Choose" class="btn btn-info" onclick="randchoose(); return false;"><br><br>
+<input id="result" type="value" value="" readonly="readonly">
+</form>
 
 <script>
-var app = angular.module('myApp', []);
-app.controller('personCtrl', function($scope) {
-    $scope.firstName = "John",
-    $scope.lastName = "Doe"
-    $scope.myVar = false;
-    $scope.toggle = function() {
-        $scope.myVar = !$scope.myVar;
-    };
-});
+function randchoose() {
+  choices = document.getElementById("choicelist").value.split("\n");
+  if (choices.length == 0) return;
+  document.getElementById("result").value = choices[Math.floor(Math.random() * choices.length)];
+}
+
+
+
+//1. find random
+//2. shake
+//3. 
 </script> 
 </body>
 </html>
