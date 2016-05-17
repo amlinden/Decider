@@ -48,6 +48,7 @@ div{
   position: relative;
 }
 
+<<<<<<< HEAD
 div::after {
   content: "";
   background: url(bakgrund7.jpg) no-repeat;
@@ -105,6 +106,16 @@ div::after {
     </p>
 </div>
 
+<div class="container" style="width:100%"><br>
+<form action="" onsubmit="return false;">
+
+<textarea class="form-control" rows="5" id="choicelist" cols=500>
+</textarea><br><br>
+
+<input type="button" value="Choose" class="btn btn-info" onclick="randchoose(); return false;"><br><br>
+<input id="result" type="value" value="" readonly="readonly">
+</form>
+
 <body ng-app= "myApp">
     <div style="width:100%">
         <button type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
@@ -144,6 +155,7 @@ div::after {
         </div>
     </div>
 
+
 <!-- Home button -->
 
 
@@ -167,6 +179,11 @@ app.controller('inspirationCtrl', function($scope) {
 };
 }); 
 
+function randchoose() {
+  choices = document.getElementById("choicelist").value.split("\n");
+  if (choices.length == 0) return;
+  document.getElementById("result").value = choices[Math.floor(Math.random() * choices.length)];
+}
 </script> 
 
 
