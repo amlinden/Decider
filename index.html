@@ -38,40 +38,137 @@
     .img-circle {
     border-radius: 50%;
 }
+div{
+  background: url(bakgrund7.jpg) no-repeat;
+}
+/*div {
+  width: 400px;
+  height: 100px;
+  display: block;
+  position: relative;
+}
+
+div::after {
+  content: "";
+  background: url(bakgrund7.jpg) no-repeat;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}*/
+
+/*.ghost-button {
+  display: inline-block;
+  width: 200px;
+  padding: 8px;
+  color: #fff;
+  border: 1px solid #fff;
+  text-align: center;
+  outline: none;
+  text-decoration: none;
+}
+
+.ghost-button:hover,
+.ghost-button:active {
+  background-color: #fff;
+  color: #000;
+}*/
+
+.ghost-button-rounded-corners {
+  display: inline-block;
+  width: 200px;
+  padding: 8px;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  text-align: center;
+  outline: none;
+  text-decoration: none;
+}
+.ghost-button-rounded-corners:hover,
+.ghost-button-rounded-corners:active {
+  background-color: #fff;
+  color: #000;
+}
+
 </style>
-<script>
-// Script
 
-</script>
-<body>
-    <div class="container" style="width:100%">
-        <button id="room1" type="button" class="btn btn-info">Start</button> <div ng-hide="myValue" class="ng-hide"></div>
-        <button id="room2"onclick="room_id(this.id);" type="button" class="btn btn-info">hej</button>
-    </div>
-   
-
-    <div ng-app="myApp" ng-controller="personCtrl">
-
-<button ng-click="toggle()">Hide user</button>
-
-<p ng-hide="myVar">
-First Name: <input type=text ng-model="firstName"><br>
-Last Name: <input type=text ng-model="lastName"><br><br>
-Full Name: {{firstName + " " + lastName}}
-</p>
-
+<!-- Go back button -->
+<div style= "background: lightgrey;">
+    <p>
+        <a href="/index.html">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+    </p>
 </div>
+
+<body ng-app= "myApp">
+    <div style="width:100%">
+        <button type="button" class="ghost-button-rounded-corners" >Make a Decision</button> 
+        </br><!-- <div ng-hide="myValue" class="ng-hide"></div> -->
+        
+        <div ng-controller="inspirationCtrl" >
+            <button ng-click="toggle()" type="button" class="ghost-button-rounded-corners" >Get inspiration</button>
+
+        <p ng-hide="showInspo" >
+            Find
+            </br>
+            me 
+            </br>
+            some
+            </br>
+
+            <button ng-click="toggleChoice()" class="ghost-button-rounded-corners" >
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+
+         <p ng-hide="showChoices">
+            </br>
+            <button class="ghost-button-rounded-corners">Coffee</button>
+            <input type=text ng-model="coffee"><br>
+            <button class="ghost-button-rounded-corners">Beer</button>
+            <input type=text ng-model="beer"><br><br> 
+
+            </p>
+
+        <!-- Home button -->
+        <button type="button" class="ghost-button-rounded-corners">
+            <span class="glyphicon glyphicon-home"></span>
+        </button>
+        </br>
+
+            </p>
+        </div>
+    </div>
+
+<!-- Home button -->
+
 
 <script>
 var app = angular.module('myApp', []);
-app.controller('personCtrl', function($scope) {
-    $scope.firstName = "John",
-    $scope.lastName = "Doe"
-    $scope.myVar = false;
+
+app.controller('inspirationCtrl', function($scope) {
+    $scope.showInspo = true
+
+
     $scope.toggle = function() {
-        $scope.myVar = !$scope.myVar;
+        $scope.showInspo = !$scope.showInspo;
+        $scope.showChoices = true;
+
     };
-});
+    $scope.showChoices = true;
+    $scope.coffee = "Beirut Café, 450 meter, Engelbrektsgatan 37",
+    $scope.beer = "Lion Bar",    
+    $scope.toggleChoice = function() {
+    $scope.showChoices = !$scope.showChoices;
+};
+}); 
+
 </script> 
+
+
 </body>
 </html>
