@@ -41,6 +41,7 @@
 
 
 div{
+  
   background: url(bakgrund7.jpg) no-repeat;
 }
 /*div {
@@ -83,8 +84,9 @@ div::after {
   display: inline-block;
   width: 200px;
   padding: 8px;
+  background-color: transparent;
   color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid lightblue;
   border-radius: 5px;
   text-align: center;
   outline: none;
@@ -92,8 +94,9 @@ div::after {
 }
 .ghost-button-rounded-corners:hover,
 .ghost-button-rounded-corners:active {
-  background-color: #fff;
-  color: #000;
+  background-color: lightblue;
+  color:#fff ;
+  
 }
 
 </style>
@@ -186,7 +189,8 @@ app.controller('shakeMeCtrl', function($scope) {
     $scope.showForm = true
     $scope.toggle = function() {
         $scope.showForm = !$scope.showForm;
-        // $scope.showChoices = true;
+        
+        $scope.showInspo = true
     };
 }); 
 
