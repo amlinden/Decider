@@ -45,8 +45,13 @@ body{
   /*background: #99CCCC;*/
   background: url(bakgrund3.jpg) no-repeat;
   width:100%;
+  height: 100%;
 }
 
+#home {
+  width: 100%;
+  border: rgba(0,0,0,0);
+}
 .ghost-button-rounded-corners {
   display: inline-block;
   width: 200px;
@@ -107,8 +112,9 @@ h2 {
 
 }
 #map {
-    height: 500px;
+    height: 300px;
     width: 100%;
+    opacity: 0;
 }
 </style>
 
@@ -121,8 +127,10 @@ h2 {
         <span class="glyphicon glyphicon-chevron-left"></span>
     </button>
     </br>
-    <p><span class="glyphicon glyphicon-road" ></span></p>
-    <h2>- We make it easier by helping you choose!</h2></br></br></br>
+    <div ng-hide="logo">
+      <p><span class="glyphicon glyphicon-road" ></span></p>
+      <h2>- We make it easier by helping you choose!</h2></br></br></br>
+    </div>
     <!-- Go back-button, funkar inte med hide ännu --> 
 
     
@@ -153,38 +161,29 @@ h2 {
       <button ng-click="inspoChoice()" class="ghost-button-rounded-corners" >
       <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
-
+  </div>
    <div ng-hide="showChoices" ng-controller="mapCtrl">
-
-
-
-
       </br>
       <!-- <div ng-controller="mapCtrl"> -->
         
+      <div ng-hide="coffeBeerBtn">
+        <button ng-click="showCafe(); allMap()" class="ghost-button-rounded-corners">Coffee</button>
+        </br></br>
 
-      <button ng-click="showCafe(); allMap()"class="ghost-button-rounded-corners">Coffee</button>
-      </br></br>
-
-      <button class="ghost-button-rounded-corners">Beer</button> </br>
-        
+        <button class="ghost-button-rounded-corners">Beer</button> </br>
+      </div>
         <span style="color:lightblue; font-size: 40px;" id="namn"></span></br>
         <span style="color:lightblue; font-size: 15px;" id="order"></span></br>
         <span style="color:lightblue; font-size: 20px;" ng-hide="mapBtn" ng-click= "allMap()" id="dist"></span>
-
-        <button ng-hide="mapBtn" ng-click="showMap(); allMap()" class="ghost-button">
+        <button ng-hide="mapBtn" ng-click="showMap()" class="ghost-button">
         <span class= "glyphicon glyphicon-map-marker"></span></button>
-      
-      </div>
+        <div id="map"></div>
 
-      <div ng-hide="map" id="map"></div>
-        
-        
-      
+    </div>      
 
   <!-- Home button -->
   </br></br>
-  <button ng-hide="homeBtn" type="button" class="ghost-button-rounded-corners">
+  <button id="home" ng-hide="homeBtn" ng-click="goHome()" type="button" class="ghost-button-rounded-corners">
       <span class="glyphicon glyphicon-home"></span>
   </button></br></br></br></br>
       </div>
@@ -201,11 +200,13 @@ var app = angular.module('myApp', []);
     $scope.showChoices = true;
     $scope.showForm    = true;
     $scope.homeBtn     = true;
+    $scope.logo        = false;
     $scope.menuBtn1    = false;
     $scope.menuBtn2    = false;
     $scope.back        = true;
     $scope.mapBtn      = true;
-    $scope.map         = true;
+    $scope.karta       = true;
+
 
     $scope.goBack = function() {   
       $scope.back       = !$scope.back;
@@ -228,7 +229,7 @@ var app = angular.module('myApp', []);
     };
     $scope.getInspo = function() {
         $scope.back      = false;
-
+        $scope.homeBtn   = false;
         $scope.latestShowed.push("menuBtn1","menuBtn2");
 
         $scope.showInspo = !$scope.showInspo;
@@ -239,7 +240,7 @@ var app = angular.module('myApp', []);
     $scope.inspoChoice = function() {
       $scope.showChoices = !$scope.showChoices;
       $scope.mapBtn     = true;
-
+      $scope.homeBtn   = false;
 
     };
     $scope.shakePage = function() {
@@ -253,14 +254,30 @@ var app = angular.module('myApp', []);
 
 
     $scope.showCafe = function() {
-      $scope.back       = false;
-      $scope.mapBtn     = false;
+      $scope.back         = false;
+      $scope.mapBtn       = false;
+      $scope.homeBtn      = false;
+      $scope.showInspo    = true;
+      $scope.logo         = true;
+      $scope.coffeBeerBtn = true;
+
       
     };
 
     $scope.showMap = function() {
-      $scope.map      = false;
-      
+      $scope.homeBtn  = false;
+      document.getElementById("map").style.opacity="1";      
+    };
+
+    $scope.goHome = function(){
+      $scope.showInspo   = true;
+      $scope.showChoices = true;
+      $scope.showForm    = true;
+      $scope.homeBtn     = true;
+      $scope.menuBtn1    = false;
+      $scope.menuBtn2    = false;
+      $scope.back        = true;
+      $scope.mapBtn      = true;
     };
 });
 
@@ -342,7 +359,7 @@ app.controller('mapCtrl', function($scope){
     $scope.directionsDisplay = new google.maps.DirectionsRenderer;     
     var mapOptions = {
       center: {lat: 59.329324, lng: 18.068581},
-      zoom: 15,
+      zoom: 10,
       tilt: 45,
     }
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -379,7 +396,7 @@ app.controller('mapCtrl', function($scope){
                         }
                     }
                 }
-                if (i=2){
+                if ($scope.closestResp){
                   $scope.displayRoute($scope.closestResp);
               }
             });
