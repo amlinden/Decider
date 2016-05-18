@@ -163,12 +163,12 @@ h2 {
       <!-- <div ng-controller="mapCtrl"> -->
         
 
-      <button ng-click="showMapBtn()"class="ghost-button-rounded-corners">Coffee</button>
+      <button ng-click="showCafe(); allMap()" class="ghost-button-rounded-corners">Coffee</button>
       </br></br>
 
       <button class="ghost-button-rounded-corners">Beer</button> 
         
-        <p ng-hide="mapBtn" ng-click= "allMap()" id="dist">hej</p>
+        <p id="dist">hej</p>
         <span id="namn"></span>
         <span id="order"></span>
 
@@ -248,7 +248,7 @@ var app = angular.module('myApp', []);
     };
 
 
-    $scope.showMapBtn = function() {
+    $scope.showCafe = function() {
       $scope.back       = false;
       $scope.mapBtn     = false;
       
