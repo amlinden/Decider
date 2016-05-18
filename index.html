@@ -163,31 +163,30 @@ h2 {
       <!-- <div ng-controller="mapCtrl"> -->
         
 
-<<<<<<< HEAD
-      <button ng-click="showCafe(); allMap()"class="ghost-button-rounded-corners">Coffee</button>
-=======
       <button ng-click="showCafe(); allMap()" class="ghost-button-rounded-corners">Coffee</button>
->>>>>>> origin/master
+
+      <button ng-click="showMapBtn()"class="ghost-button-rounded-corners">Coffee</button>
+
       </br></br>
 
-      <button class="ghost-button-rounded-corners">Beer</button> </br>
-        
-<<<<<<< HEAD
+      <button class="ghost-button-rounded-corners">Beer</button> 
+
         <span style="color:lightblue; font-size: 40px;" id="namn"></span></br>
         <span style="color:lightblue; font-size: 15px;" id="order"></span></br>
         <span style="color:lightblue; font-size: 20px;" ng-hide="mapBtn" ng-click= "allMap()" id="dist"></span>
-=======
-        <p id="dist">hej</p>
+
+
+        <p ng-hide="mapBtn" ng-click= "allMap()" id="dist">hej</p>
         <span id="namn"></span>
         <span id="order"></span>
->>>>>>> origin/master
 
-        <button ng-hide="mapBtn" ng-click="showMap(); allMap()" class="ghost-button">
+
+        <button ng-hide="mapBtn" ng-click= "allMap()"class="ghost-button">
         <span class= "glyphicon glyphicon-map-marker"></span></button>
       
       </div>
 
-      <div ng-hide="map" id="map"></div>
+      <div id="map"></div>
         
         
       
@@ -215,7 +214,6 @@ var app = angular.module('myApp', []);
     $scope.menuBtn2    = false;
     $scope.back        = true;
     $scope.mapBtn      = true;
-    $scope.map         = true;
 
     $scope.goBack = function() {   
       $scope.back       = !$scope.back;
@@ -248,9 +246,6 @@ var app = angular.module('myApp', []);
     };
     $scope.inspoChoice = function() {
       $scope.showChoices = !$scope.showChoices;
-      $scope.mapBtn     = true;
-
-
     };
     $scope.shakePage = function() {
         $scope.back       = false;
@@ -262,14 +257,9 @@ var app = angular.module('myApp', []);
     };
 
 
-    $scope.showCafe = function() {
+    $scope.showMapBtn = function() {
       $scope.back       = false;
       $scope.mapBtn     = false;
-      
-    };
-
-    $scope.showMap = function() {
-      $scope.map      = false;
       
     };
 });
@@ -315,17 +305,17 @@ app.controller('mapCtrl', function($scope){
     $scope.cafes = [
         {
             title: "Café Saturnus",
-            order: "Latte and cinnamon bun",
+            order: "Latte och kanelbulle",
             koordinat: {lat: 59.339491, lng: 18.068747}
         },
             {
             title: "Sturekatten",
-            order: "Coffee and apple pie",
+            order: "Bryggkaffe och äppelpaj",
             koordinat: {lat: 59.334771, lng: 18.074969}
         },
         {
             title: "Kaffeverket",
-            order: "Machalatte and chia pudding",
+            order: "Machalatte och chiapudding",
             koordinat: {lat: 59.341405, lng: 18.038072}
         }
     ];
@@ -405,7 +395,7 @@ app.controller('mapCtrl', function($scope){
           console.log(closestResp.routes[0].legs[0].distance.text)
           document.getElementById("dist").innerHTML = closestResp.routes[0].legs[0].distance.text;
           document.getElementById("namn").innerHTML = $scope.cafes[i].title;
-          document.getElementById("order").innerHTML = "Order: " + $scope.cafes[i].order;
+          document.getElementById("order").innerHTML = $scope.cafes[i].order;
         }
       } 
       console.log($scope.cafes)
