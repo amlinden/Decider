@@ -112,7 +112,7 @@ h2 {
 
 }
 #map {
-    height: 300px;
+    height: 250px;
     width: 100%;
     opacity: 0;
 }
@@ -254,6 +254,7 @@ var app = angular.module('myApp', []);
 
 
     $scope.showCafe = function() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       $scope.back         = false;
       $scope.mapBtn       = false;
       $scope.homeBtn      = false;
@@ -265,6 +266,7 @@ var app = angular.module('myApp', []);
     };
 
     $scope.showMap = function() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       $scope.homeBtn  = false;
       document.getElementById("map").style.opacity="1";      
     };
