@@ -159,8 +159,8 @@ h2 {
   <input id="result" type="value" value="" readonly="readonly">
  -->
 
-  <input ows="1" id="choice1" placeholder="Option 1">
-  <input rows="1" id="choice2" placeholder="Option 2">
+  <input ows="1" id="choice1" placeholder="Option">
+  <input rows="1" id="choice2" placeholder="Option">
   <p id="newTextarea"></p>
 
   <button id="add" class="ghost-button-rounded-corners">+</button>
@@ -519,12 +519,28 @@ function randchoose() {
     choicefields.push(textareaID);
     var newInput = document.createElement("INPUT");
     newInput.setAttribute('id',textareaID);
-    newInput.setAttribute('placeholder','Option '+i);
+    newInput.setAttribute('placeholder','Option');
     var textnode = document.createTextNode('');
     newInput.appendChild(textnode);
     document.getElementById("newTextarea").appendChild(newInput);
 
 }
+
+  document.getElementById("remove").addEventListener("click",removeform)
+
+  //NYTT!!
+  function removeform() {
+      lastOption = choicefields[choicefields.length-1]
+      if (lastOption != 'choice1' && lastOption != 'choice2'){
+          remove = document.getElementById(lastOption)
+          console.log("det här borde vara node: " + remove)
+          document.getElementById('newTextarea').removeChild(remove);
+          choicefields.splice(choicefields.length-1,1);
+      }
+      else {
+          alert('At least two options are needed.')
+      }
+  }
 
 </script> 
 
