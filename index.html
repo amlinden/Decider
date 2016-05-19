@@ -16,9 +16,12 @@
 <!-- for the map -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Z2r8SM1mMa-tO4_6jdqu7o5LaJ0E0kA" defer>
     </script>
+    <!-- For the shake -->
+    <script type="text/javascript" src="lib/shake.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+<!--     <link rel="stylesheet" href="./form_files/bootstrap.min.css"> -->
 
 <!-- saved from url=(0047)http://evothings.com/demos/dome_pics/index.html -->
     <html class="ui-mobile"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="http://evothings.com/demos/dome_pics/index.html">--><base href=".">
@@ -140,13 +143,26 @@ h2 {
   <!-- Here the user makes choices so that the shake me will decide choice -->
   <form ng-hide="showForm" action="" onsubmit="return false;">
 
-  <textarea class="form-control" rows="1" id="choicelist" cols=500>
+ <!--  <textarea class="form-control" rows="1" id="choicelist" cols=500>
   </textarea><br><br>
 
   <input type="button" value="Choose" class="ghost-button-rounded-corners" onclick="randchoose(); return false;"><br><br>
   <input id="result" type="value" value="" readonly="readonly">
-  </br><span style="color:lightblue; font-size: 20px;" > Shake me</span>
+ -->
+
+  <input ows="1" id="choice1" placeholder="Option 1">
+  <input rows="1" id="choice2" placeholder="Option 2">
+  <p id="newTextarea"></p>
+
+  <button id="add" class="ghost-button-rounded-corners">+</button>
+
+  </br><span style="color:lightblue; font-size: 20px;" > Shake me</span>  
+
+  <div ng-hide="shakeDecide" id="result">
+</div>
   </form>
+
+
 
   <!-- second button on the first page, on click, takes you to get inspiration page -->
   
@@ -206,6 +222,7 @@ var app = angular.module('myApp', []);
     $scope.back        = true;
     $scope.mapBtn      = true;
     $scope.karta       = true;
+    //$scope.shakeDecide = true;
 
 
     $scope.goBack = function() {   
@@ -444,6 +461,62 @@ app.controller('mapCtrl', function($scope){
 };
 
 });
+
+window.onload = function() {
+
+    //create a new instance of shake.js.
+    var myShakeEvent = new Shake({
+        threshold: 15
+        
+    });
+
+    // start listening to device motion
+    myShakeEvent.start();
+
+    // register a shake event
+    window.addEventListener('shake', shakeEventDidOccur, false);
+
+    //shake event callback
+    function shakeEventDidOccur () {
+        randchoose();
+        //put your own code here etc.
+        alert('You shake!');
+    }
+};
+
+var choicefields = [];
+
+//choses random of options to 
+function randchoose() {
+    choices = []
+    choices.push(document.getElementById("choice1").value);
+    choices.push(document.getElementById("choice2").value);
+    if(choicefields.length > 0){
+        for (var j=0; j<choicefields.length;j++){
+            newinputIDValue = document.getElementById(choicefields[j]).value
+            choices.push(newinputIDValue);
+        }    
+    }
+    if (choices.length == 0) return;
+    document.getElementById("result").innerHTML = choices[Math.floor(Math.random() * choices.length)];
+}
+
+// SHAKE SCRIPT
+  document.getElementById("add").addEventListener("click",addform);
+  var i=2;
+  function addform() {
+    i++;
+    textareaID = "choice"+i
+    choicefields.push(textareaID);
+    var newInput = document.createElement("INPUT");
+    newInput.setAttribute('id',textareaID);
+    newInput.setAttribute('placeholder','Option '+i);
+    var textnode = document.createTextNode('');
+    newInput.appendChild(textnode);
+    document.getElementById("newTextarea").appendChild(newInput);
+
+}
+
 </script> 
 
 
