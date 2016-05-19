@@ -4,7 +4,7 @@
     <!-- måste komma först, de nedan -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css'>
@@ -112,7 +112,7 @@ h2 {
 
 }
 #map {
-    height: 250px;
+    height: 200px;
     width: 100%;
     opacity: 0;
 }
@@ -228,10 +228,11 @@ var app = angular.module('myApp', []);
 
     };
     $scope.getInspo = function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        $scope.logo      = true;
         $scope.back      = false;
         $scope.homeBtn   = false;
         $scope.latestShowed.push("menuBtn1","menuBtn2");
-
         $scope.showInspo = !$scope.showInspo;
         $scope.showChoices = true;
         $scope.menuBtn1 = true;
@@ -244,6 +245,7 @@ var app = angular.module('myApp', []);
 
     };
     $scope.shakePage = function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         $scope.back       = false;
         $scope.latestShowed.push("menuBtn1","menuBtn2");
         $scope.showForm = !$scope.showForm;
@@ -272,12 +274,14 @@ var app = angular.module('myApp', []);
     };
 
     $scope.goHome = function(){
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       $scope.showInspo   = true;
       $scope.showChoices = true;
       $scope.showForm    = true;
       $scope.homeBtn     = true;
       $scope.menuBtn1    = false;
       $scope.menuBtn2    = false;
+      $scope.logo        = false;
       $scope.back        = true;
       $scope.mapBtn      = true;
     };
