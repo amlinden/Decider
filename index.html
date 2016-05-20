@@ -126,9 +126,10 @@ h2 {
 }
 
 #map {
-    height: 200px;
+    height: 0px;
     width: 100%;
     opacity: 0;
+    overflow: hidden;
 }
 </style>
 
@@ -300,7 +301,10 @@ var app = angular.module('myApp', []);
     $scope.showMap = function() {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       $scope.homeBtn  = false;
-      document.getElementById("map").style.opacity="1";      
+      document.getElementById("map").style.opacity="1";
+      $scope.map(document.getElementById("map"), 'resize');
+      document.getElementById("map").style.height="200px";      
+      
     };
 
     $scope.goHome = function(){
